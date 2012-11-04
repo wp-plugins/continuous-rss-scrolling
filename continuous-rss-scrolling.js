@@ -1,6 +1,6 @@
 /**
  *     continuous rss scrolling
- *     Copyright (C) 2011  www.gopiplus.com
+ *     Copyright (C) 2011 - 2013 www.gopiplus.com
  * 
  *     This program is free software: you can redistribute it and/or modify
  *     it under the terms of the GNU General Public License as published by

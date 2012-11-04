@@ -5,8 +5,8 @@ Author URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Plugin URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Tags:  Continuous, rss, scrolling
 Requires at least: 3.0
-Tested up to: 3.4.1
-Stable tag: 7.0
+Tested up to: 3.4.2
+Stable tag: 8.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
@@ -91,52 +91,58 @@ http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 
 == Upgrade Notice ==
 
-1.0				
+= 1.0 =				
 First version.		
 
-2.0
+= 2.0 =
 More help included.
 
-3.0
+= 3.0 =
 Only admin user can access this plugin.
 RSS links will open in a new window. 
 
-4.0
+= 4.0 =
 Tested up to 3.2.1
 Javascript handled as per w3c standard.
 
-5.0
+= 5.0 =
 Tested up to 3.3
 
-6.0
+= 6.0 =
 Tested up to 3.4
 
-7.0
+= 7.0 =
 Tested up to 3.4.1
 New demo link
 
+= 8.0 =
+Tested upto 3.4.2
+
 == Changelog ==
 
-1.0		
+= 1.0 =	
 First version
 
-2.0		
+= 2.0 =		
 More help included.
 
-3.0
+= 3.0 =
 Only admin user can access this plugin.
 RSS links will open in a new window. 
 
-4.0
+= 4.0 =
 Tested up to 3.2.1
 Javascript handled as per w3c standard.
 
-5.0
+= 5.0 =
 Tested up to 3.3
 
-6.0
+= 6.0 =
 Tested up to 3.4
 
-7.0
+= 7.0 =
 Tested upto 3.4.1
 New demo link
+
+= 8.0 =
+Tested upto 3.4.2
