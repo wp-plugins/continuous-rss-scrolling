@@ -4,14 +4,13 @@ Donate link: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Author URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Plugin URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Tags:  Continuous, rss, scrolling
-Requires at least: 3.0
-Tested up to: 3.5
-Stable tag: 8.1
+Requires at least: 3.4
+Tested up to: 3.6
+Stable tag: 9.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
 This plug-in will scroll the RSS title continuously in the wordpress website, we can use this plugin as a widget.
- 
 
 == Description ==
 
@@ -22,7 +21,7 @@ Check official website for live demo [http://www.gopiplus.com/work/2010/09/05/co
 *   [Comments/Suggestion](http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/)			
 *   [About author](http://www.gopiplus.com/work/)				
 
-This plug-in will scroll the RSS title continuously in the wordpress website, we can use this plug-in as a widget to scroll the rss news.
+Continuous rss scrolling plugin create the vertical scroll in the widget using given rss feed. This will scroll only the rss title in the widget. The title will scroll one by one in the widget area. Using this plugin we can show any rss feed in our website. No coding knowledge required to configure this plugin. Activate the plugin and drag and drop the widget to sidebar and check the front end. You can able to see the scroll with default rss feed.
 
 1. Easy installation.  
 2. Widgets, so you can add pretty much anything. 
@@ -39,11 +38,6 @@ See the live demo !
 To see my all plugin : [click to go](http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/)			
 More info : [click to go](http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/)
 	
-3.0			
-Only admin user can access this plugin.
-RSS links will open in a new window. 
-
-
 == Installation ==	
 
 **Installation Instruction & Configuration**  	
@@ -68,7 +62,6 @@ RSS links will open in a new window.
 *	Option - 2 : Copy and past the below mentioned code in desired template location ie your PHP file.		
 	
 &lt;?php if (function_exists (crs)) crs(); ?&gt;	
-
 
 == Frequently Asked Questions ==
 
@@ -121,6 +114,9 @@ Tested upto 3.4.2
 = 8.1 =
 Tested upto 3.5
 
+= 9.0 =
+Tested upto 3.6
+
 == Changelog ==
 
 = 1.0 =	
@@ -152,3 +148,6 @@ Tested upto 3.4.2
 
 = 8.1 =
 Tested upto 3.5
+
+= 9.0 =
+Tested upto 3.6
