@@ -5,7 +5,7 @@ Plugin Name: continuous rss scrolling
 Plugin URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Description: This plug-in will scroll the RSS title in the wordpress website, <a href="http://www.gopiplus.com/work/" target="_blank">Live demo</a>.
 Author: Gopi.R
-Version: 9.0
+Version: 9.1
 Author URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Donate link: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Tags: Continuous, announcement, scroller, message, rss, xml
@@ -140,9 +140,7 @@ function crs_install()
 
 function crs_control() 
 {
-	echo '<p>Continuous rss scrolling.<br> To change the setting goto Continuous rss scrolling link on Setting menu.';
-	echo ' <a href="options-general.php?page=continuous-rss-scrolling/continuous-rss-scrolling.php">';
-	echo 'click here</a></p>';
+	echo '<p>Continuous rss scrolling.  <a href="options-general.php?page=continuous-rss-scrolling">click here</a> to update.</p>';
 	?>
 	Check official website for live demo and more information <a target="_blank" href="http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/">click here</a>
 	<?php
@@ -160,64 +158,85 @@ function crs_widget($args)
 
 function crs_admin_options() 
 {
-	global $wpdb;
 	?>
-
 	<div class="wrap">
-    <h2>Continuous rss scrolling</h2>
-    </div>
-	<?php
-	$crs_title = get_option('crs_title');
-	$crs_display_width = get_option('crs_display_width');
-	$crs_display_count = get_option('crs_display_count');
-	$crs_record_height = get_option('crs_record_height');
-	$crs_rss_url = get_option('crs_rss_url');
-	
-	if (@$_POST['crs_submit']) 
-	{
-		$crs_title = stripslashes($_POST['crs_title']);
-		$crs_display_width = stripslashes($_POST['crs_display_width']);
-		$crs_display_count = stripslashes($_POST['crs_display_count']);
-		$crs_record_height = stripslashes($_POST['crs_record_height']);
-		$crs_rss_url = stripslashes($_POST['crs_rss_url']);
+	  <div class="form-wrap">
+		<div id="icon-edit" class="icon32 icon32-posts-post"></div>
+		<h2>Continuous rss scrolling</h2>
+		<?php
+		$crs_title = get_option('crs_title');
+		$crs_display_width = get_option('crs_display_width');
+		$crs_display_count = get_option('crs_display_count');
+		$crs_record_height = get_option('crs_record_height');
+		$crs_rss_url = get_option('crs_rss_url');
 		
-		update_option('crs_title', $crs_title );
-		update_option('crs_display_width', $crs_display_width );
-		update_option('crs_display_count', $crs_display_count );
-		update_option('crs_record_height', $crs_record_height );
-		update_option('crs_rss_url', $crs_rss_url );
-	}
-	
-	?>
-	<form name="crs_form" method="post" action="">
-	<?php
-	echo '<p>Title:<br><input  style="width: 200px;" type="text" value="';
-	echo $crs_title . '" name="crs_title" id="crs_title" /></p>';
-	
-	echo '<p>Each scroller height in scroll:<br><input  style="width: 100px;" type="text" value="';
-	echo $crs_record_height . '" name="crs_record_height" id="crs_record_height" /> (default: 30) ';
-	echo 'If any overlap in the announcement text at front end, <br>you should arrange(increase/decrease) the above height.</p>';
-	
-	echo '<p>Display number of record at the same time in scroll:<br><input  style="width: 100px;" type="text" value="';
-	echo $crs_display_count . '" name="crs_display_count" id="crs_display_count" /></p>';
-	
-	echo '<p>Enter max character for each post/title:<br><input  style="width: 100px;" type="text" value="';
-	echo $crs_display_width . '" name="crs_display_width" id="crs_display_width" /></p>';
-
-	echo '<p>RSS url<br><input  style="width: 500px;" type="text" value="';
-	echo $crs_rss_url . '" name="crs_rss_url" id="crs_rss_url" /></p>';
-
-	echo '<input name="crs_submit" id="crs_submit" lang="publish" class="button-primary" value="Update Setting" type="Submit" />';
-	?>
-	</form>
-    <?php include_once("help.php"); ?>
+		if (isset($_POST['crs_form_submit']) && $_POST['crs_form_submit'] == 'yes')
+		{
+			//	Just security thingy that wordpress offers us
+			check_admin_referer('crs_form_setting');
+			
+			$crs_title = stripslashes($_POST['crs_title']);
+			$crs_display_width = stripslashes($_POST['crs_display_width']);
+			$crs_display_count = stripslashes($_POST['crs_display_count']);
+			$crs_record_height = stripslashes($_POST['crs_record_height']);
+			$crs_rss_url = stripslashes($_POST['crs_rss_url']);
+			
+			update_option('crs_title', $crs_title );
+			update_option('crs_display_width', $crs_display_width );
+			update_option('crs_display_count', $crs_display_count );
+			update_option('crs_record_height', $crs_record_height );
+			update_option('crs_rss_url', $crs_rss_url );
+			
+			?>
+			<div class="updated fade">
+				<p><strong>Details successfully updated.</strong></p>
+			</div>
+			<?php
+		}
+		?>
+		<h3>Plugin setting</h3>
+		<form name="crs_form" method="post" action="#">
+		
+			<label for="tag-title">Title</label>
+			<input name="crs_title" type="text" value="<?php echo $crs_title; ?>"  id="crs_title" size="70" maxlength="200">
+			<p>Please enter your widget title.</p>
+			
+			<label for="tag-title">Scroll height</label>
+			<input name="crs_record_height" type="text" value="<?php echo $crs_record_height; ?>"  id="crs_record_height" maxlength="3">
+			<p>If any overlap in the announcement text at front end, <br>you should arrange(increase/decrease) the above height.</p>
+			
+			<label for="tag-title">Display count</label>
+			<input name="crs_display_count" type="text" value="<?php echo $crs_display_count; ?>"  id="crs_display_count" maxlength="3">
+			<p>Please enter number of records you want to display at the same time in scroll.</p>
+			
+			<label for="tag-title">Display length</label>
+			<input name="crs_display_width" type="text" value="<?php echo $crs_display_width; ?>"  id="crs_display_width" maxlength="3">
+			<p>Please enter max number of character to display in the scroll.</p>
+			
+			<label for="tag-title">RSS url</label>
+			<input name="crs_rss_url" type="text" value="<?php echo $crs_rss_url; ?>"  id="crs_rss_url" size="120">
+			<p>Please enter your RSS url.</p>
+		
+			<div style="height:10px;"></div>
+			<input type="hidden" name="crs_form_submit" value="yes"/>
+			<input name="crs_submit" id="crs_submit" class="button" value="Submit" type="submit" />
+			<a class="button" target="_blank" href="http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/">Help</a>
+			<?php wp_nonce_field('crs_form_setting'); ?>
+		</form>
+		</div>
+		<h3>Plugin configuration option</h3>
+		<ol>
+			<li>Drag and drop the widget to your sidebar.</li>
+			<li>Add directly in to the theme using PHP code.</li>
+		</ol>
+	<p class="description">Check official website for more information <a target="_blank" href="http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/">click here</a></p>
+	</div>
 	<?php
 }
 
-
 function crs_add_to_menu() 
 {
-	add_options_page('Continuous rss scrolling', 'Continuous rss scrolling', 'manage_options', __FILE__, 'crs_admin_options' );
+	add_options_page('Continuous rss scrolling', 'Continuous rss scrolling', 'manage_options', 'continuous-rss-scrolling', 'crs_admin_options' );
 }
 
 if (is_admin()) 
@@ -240,7 +259,7 @@ function crs_init()
 
 function crs_deactivation() 
 {
-	
+	// No action required.
 }
 
 function crs_add_javascript_files() 
