@@ -5,8 +5,8 @@ Author URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Plugin URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Tags:  Continuous, rss, scrolling
 Requires at least: 3.4
-Tested up to: 3.6
-Stable tag: 9.1
+Tested up to: 3.8
+Stable tag: 9.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
@@ -120,6 +120,11 @@ Tested upto 3.6
 = 9.1 =	
 Minor change in the admin layout.
 
+= 9.2 =
+1. Tested up to 3.8
+2. Now this plugin supports localization (or internationalization). i.e. option to translate into other languages. 
+Plugin *.po file (continuous-rss-scrolling.po) available in the languages folder. Translators Welcome.
+
 == Changelog ==
 
 = 1.0 =	
@@ -157,3 +162,8 @@ Tested upto 3.6
 
 = 9.1 =	
 Minor change in the admin layout.
+
+= 9.2 =
+1. Tested up to 3.8
+2. Now this plugin supports localization (or internationalization). i.e. option to translate into other languages. 
+Plugin *.po file (continuous-rss-scrolling.po) available in the languages folder. Translators Welcome.

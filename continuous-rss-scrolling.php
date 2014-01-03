@@ -1,11 +1,10 @@
 <?php
-
 /*
-Plugin Name: continuous rss scrolling
+Plugin Name: Continuous rss scrolling
 Plugin URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Description: This plug-in will scroll the RSS title in the wordpress website, <a href="http://www.gopiplus.com/work/" target="_blank">Live demo</a>.
 Author: Gopi.R
-Version: 9.1
+Version: 9.2
 Author URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Donate link: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Tags: Continuous, announcement, scroller, message, rss, xml
@@ -20,11 +19,9 @@ function crs()
 	global $wpdb;
 	$crs_html = "";
 	$crs_x = "";
-	
 	$crs_display_width = get_option('crs_display_width');
 	$crs_display_count = get_option('crs_display_count');
 	$crs_record_height = get_option('crs_record_height');
-	
 	if(!is_numeric($crs_display_width))
 	{
 		$crs_display_width = 200;
@@ -61,10 +58,8 @@ function crs()
 		$crs_count = 0;
 		foreach( $itemblocks[1] as $block )
 		{
-			
 			preg_match_all( "/\<title\>(.*?)\<\/title\>/",  $block, $title );
 			preg_match_all( "/\<link\>(.*?)\<\/link\>/", $block, $link );
-			
 			$crs_post_title = $title[1][0];
 			$crs_post_title = mysql_real_escape_string(trim($crs_post_title));
 			$get_permalink = $link[1][0];
@@ -106,14 +101,14 @@ function crs()
 		var crs_obj	= '';
 		var crs_scrollPos 	= '';
 		var crs_numScrolls	= '';
-		var crs_heightOfElm = '<?php echo $crs_record_height; ?>'; // Height of each element (px)
+		var crs_heightOfElm = '<?php echo $crs_record_height; ?>';
 		var crs_numberOfElm = '<?php echo $crs_count; ?>';
 		var crs_scrollOn 	= 'true';
 		function crs_createscroll() 
 		{
 			<?php echo $crs_x; ?>
 			crs_obj	= document.getElementById('crs_Holder');
-			crs_obj.style.height = (crs_numberOfElm * crs_heightOfElm) + 'px'; // Set height of DIV
+			crs_obj.style.height = (crs_numberOfElm * crs_heightOfElm) + 'px';
 			crs_content();
 		}
 		</script>
@@ -124,7 +119,7 @@ function crs()
 	}
 	else
 	{
-		echo "<div style='padding-bottom:5px;padding-top:5px;'>No data available!</div>";
+		_e('No data available', 'continuous-rss-scrolling');
 	}
 }
 
@@ -140,10 +135,7 @@ function crs_install()
 
 function crs_control() 
 {
-	echo '<p>Continuous rss scrolling.  <a href="options-general.php?page=continuous-rss-scrolling">click here</a> to update.</p>';
-	?>
-	Check official website for live demo and more information <a target="_blank" href="http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/">click here</a>
-	<?php
+	_e('Continuous rss scrolling', 'continuous-rss-scrolling');
 }
 
 function crs_widget($args) 
@@ -162,7 +154,7 @@ function crs_admin_options()
 	<div class="wrap">
 	  <div class="form-wrap">
 		<div id="icon-edit" class="icon32 icon32-posts-post"></div>
-		<h2>Continuous rss scrolling</h2>
+		<h2><?php _e('Continuous rss scrolling', 'continuous-rss-scrolling'); ?></h2>
 		<?php
 		$crs_title = get_option('crs_title');
 		$crs_display_width = get_option('crs_display_width');
@@ -189,54 +181,56 @@ function crs_admin_options()
 			
 			?>
 			<div class="updated fade">
-				<p><strong>Details successfully updated.</strong></p>
+				<p><strong><?php _e('Details successfully updated.', 'continuous-rss-scrolling'); ?></strong></p>
 			</div>
 			<?php
 		}
 		?>
-		<h3>Plugin setting</h3>
+		<h3><?php _e('Plugin setting', 'continuous-rss-scrolling'); ?></h3>
 		<form name="crs_form" method="post" action="#">
 		
-			<label for="tag-title">Title</label>
+			<label for="tag-title"><?php _e('Title', 'continuous-rss-scrolling'); ?></label>
 			<input name="crs_title" type="text" value="<?php echo $crs_title; ?>"  id="crs_title" size="70" maxlength="200">
-			<p>Please enter your widget title.</p>
+			<p><?php _e('Please enter your widget title.', 'continuous-rss-scrolling'); ?></p>
 			
-			<label for="tag-title">Scroll height</label>
+			<label for="tag-title"><?php _e('Scroll height', 'continuous-rss-scrolling'); ?></label>
 			<input name="crs_record_height" type="text" value="<?php echo $crs_record_height; ?>"  id="crs_record_height" maxlength="3">
-			<p>If any overlap in the announcement text at front end, <br>you should arrange(increase/decrease) the above height.</p>
+			<p><?php _e('If any overlap in the announcement text at front end, <br>you should arrange(increase/decrease) the above height.', 'continuous-rss-scrolling'); ?></p>
 			
-			<label for="tag-title">Display count</label>
+			<label for="tag-title"><?php _e('Display count', 'continuous-rss-scrolling'); ?></label>
 			<input name="crs_display_count" type="text" value="<?php echo $crs_display_count; ?>"  id="crs_display_count" maxlength="3">
-			<p>Please enter number of records you want to display at the same time in scroll.</p>
+			<p><?php _e('Please enter number of records you want to display at the same time in scroll.', 'continuous-rss-scrolling'); ?></p>
 			
-			<label for="tag-title">Display length</label>
+			<label for="tag-title"><?php _e('Display length', 'continuous-rss-scrolling'); ?></label>
 			<input name="crs_display_width" type="text" value="<?php echo $crs_display_width; ?>"  id="crs_display_width" maxlength="3">
-			<p>Please enter max number of character to display in the scroll.</p>
+			<p><?php _e('Please enter max number of character to display in the scroll.', 'continuous-rss-scrolling'); ?></p>
 			
-			<label for="tag-title">RSS url</label>
+			<label for="tag-title"><?php _e('RSS url', 'continuous-rss-scrolling'); ?></label>
 			<input name="crs_rss_url" type="text" value="<?php echo $crs_rss_url; ?>"  id="crs_rss_url" size="120">
-			<p>Please enter your RSS url.</p>
+			<p><?php _e('Please enter your RSS url.', 'continuous-rss-scrolling'); ?></p>
 		
 			<div style="height:10px;"></div>
 			<input type="hidden" name="crs_form_submit" value="yes"/>
 			<input name="crs_submit" id="crs_submit" class="button" value="Submit" type="submit" />
-			<a class="button" target="_blank" href="http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/">Help</a>
+			<a class="button" target="_blank" href="http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/"><?php _e('Help', 'continuous-rss-scrolling'); ?></a>
 			<?php wp_nonce_field('crs_form_setting'); ?>
 		</form>
 		</div>
-		<h3>Plugin configuration option</h3>
+		<h3><?php _e('Plugin configuration option', 'continuous-rss-scrolling'); ?></h3>
 		<ol>
-			<li>Drag and drop the widget to your sidebar.</li>
-			<li>Add directly in to the theme using PHP code.</li>
+			<li><?php _e('Drag and drop the widget to your sidebar.', 'continuous-rss-scrolling'); ?></li>
+			<li><?php _e('Add directly in to the theme using PHP code.', 'continuous-rss-scrolling'); ?></li>
 		</ol>
-	<p class="description">Check official website for more information <a target="_blank" href="http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/">click here</a></p>
+	<p class="description"><?php _e('Check official website for more information', 'continuous-rss-scrolling'); ?> 
+	<a target="_blank" href="http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/"><?php _e('click here', 'continuous-rss-scrolling'); ?></a></p>
 	</div>
 	<?php
 }
 
 function crs_add_to_menu() 
 {
-	add_options_page('Continuous rss scrolling', 'Continuous rss scrolling', 'manage_options', 'continuous-rss-scrolling', 'crs_admin_options' );
+	add_options_page(__('Continuous rss scrolling', 'continuous-rss-scrolling'), 
+			__('Continuous rss scrolling', 'continuous-rss-scrolling'), 'manage_options', 'continuous-rss-scrolling', 'crs_admin_options' );
 }
 
 if (is_admin()) 
@@ -248,12 +242,12 @@ function crs_init()
 {
 	if(function_exists('wp_register_sidebar_widget')) 
 	{
-		wp_register_sidebar_widget('Continuous-rss-scrolling', 'Continuous rss scrolling', 'crs_widget');
+		wp_register_sidebar_widget('Continuous-rss-scrolling', __('Continuous rss scrolling', 'continuous-rss-scrolling'), 'crs_widget');
 	}
 	
 	if(function_exists('wp_register_widget_control')) 
 	{
-		wp_register_widget_control('Continuous-rss-scrolling', array('Continuous rss scrolling', 'widgets'), 'crs_control');
+		wp_register_widget_control('Continuous-rss-scrolling', array(__('Continuous rss scrolling', 'continuous-rss-scrolling'), 'widgets'), 'crs_control');
 	} 
 }
 
@@ -266,10 +260,16 @@ function crs_add_javascript_files()
 {
 	if (!is_admin())
 	{
-		wp_enqueue_script( 'javascript', get_option('siteurl').'/wp-content/plugins/continuous-rss-scrolling/continuous-rss-scrolling.js');
+		wp_enqueue_script( 'continuous-rss-scrolling', get_option('siteurl').'/wp-content/plugins/continuous-rss-scrolling/continuous-rss-scrolling.js');
 	}
 }
 
+function crs_textdomain() 
+{
+	  load_plugin_textdomain( 'continuous-rss-scrolling', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
+}
+
+add_action('plugins_loaded', 'crs_textdomain');
 add_action('init', 'crs_add_javascript_files');
 add_action("plugins_loaded", "crs_init");
 register_activation_hook(__FILE__, 'crs_install');
