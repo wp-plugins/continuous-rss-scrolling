@@ -5,8 +5,8 @@ Author URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Plugin URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Tags:  Continuous, rss, scrolling
 Requires at least: 3.4
-Tested up to: 3.8
-Stable tag: 9.2
+Tested up to: 3.9
+Stable tag: 9.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
@@ -125,6 +125,10 @@ Minor change in the admin layout.
 2. Now this plugin supports localization (or internationalization). i.e. option to translate into other languages. 
 Plugin *.po file (continuous-rss-scrolling.po) available in the languages folder. Translators Welcome.
 
+= 9.3 =
+1. Tested up to 3.9
+2. Now it using fetch_feed() wordpress method to load rss feed. (fetch_feed() uses the SimplePie and FeedCache functionality for retrieval and parsing and automatic caching)
+
 == Changelog ==
 
 = 1.0 =	
@@ -167,3 +171,7 @@ Minor change in the admin layout.
 1. Tested up to 3.8
 2. Now this plugin supports localization (or internationalization). i.e. option to translate into other languages. 
 Plugin *.po file (continuous-rss-scrolling.po) available in the languages folder. Translators Welcome.
+
+= 9.3 =
+1. Tested up to 3.9
+2. Now it using fetch_feed() wordpress method to load rss feed. (fetch_feed() uses the SimplePie and FeedCache functionality for retrieval and parsing and automatic caching)

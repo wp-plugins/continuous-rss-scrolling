@@ -3,8 +3,8 @@
 Plugin Name: Continuous rss scrolling
 Plugin URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Description: This plug-in will scroll the RSS title in the wordpress website, <a href="http://www.gopiplus.com/work/" target="_blank">Live demo</a>.
-Author: Gopi.R
-Version: 9.2
+Author: Gopi Ramasamy
+Version: 9.3
 Author URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Donate link: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Tags: Continuous, announcement, scroller, message, rss, xml
@@ -43,83 +43,94 @@ function crs()
 	{
 		$url = "http://www.gopiplus.com/work/category/word-press-plug-in/feed/";
 	}
-
+	
 	$xml = "";
-	$cnt=0;
-	$f = fopen( $url, 'r' );
-	while( $data = fread( $f, 4096 ) ) { $xml .= $data; }
-	fclose( $f );
-	preg_match_all( "/\<item\>(.*?)\<\/item\>/s", $xml, $itemblocks );
-	
-	$cnt=0;
-	
-	if ( ! empty($itemblocks) ) 
-	{
-		$crs_count = 0;
-		foreach( $itemblocks[1] as $block )
+	$cnt = 0;
+	$crs_count = 0;
+	$content = @file_get_contents($url);
+	if (strpos($http_response_header[0], "200")) 
+	{ 		
+		$maxitems = 0;
+		include_once( ABSPATH . WPINC . '/feed.php' );
+		$rss = fetch_feed( $url );
+		if ( ! is_wp_error( $rss ) )
 		{
-			preg_match_all( "/\<title\>(.*?)\<\/title\>/",  $block, $title );
-			preg_match_all( "/\<link\>(.*?)\<\/link\>/", $block, $link );
-			$crs_post_title = $title[1][0];
-			$crs_post_title = mysql_real_escape_string(trim($crs_post_title));
-			$get_permalink = $link[1][0];
-			$get_permalink = mysql_real_escape_string(trim($get_permalink));
-			
-			$crs_post_title = substr($crs_post_title, 0, $crs_display_width);
-
-			$dis_height = $crs_record_height."px";
-			$crs_html = $crs_html . "<div class='crs_div' style='height:$dis_height;padding:2px 0px 2px 0px;'>"; 
-			$crs_html = $crs_html . "<a target='_blank' href='$get_permalink'>$crs_post_title</a>";
-			$crs_html = $crs_html . "</div>";
-			
-			$crs_post_title = trim($crs_post_title);
-			$get_permalink = $get_permalink;
-			$crs_x = $crs_x . "crs_array[$crs_count] = '<div class=\'crs_div\' style=\'height:$dis_height;padding:2px 0px 2px 0px;\'><a target=\'_blank\' href=\'$get_permalink\'>$crs_post_title</a></div>'; ";	
-			$crs_count++;
-			
-		}
-		$crs_record_height = $crs_record_height + 4;
-		if($crs_count >= $crs_display_count)
-		{
-			$crs_count = $crs_display_count;
-			$crs_height = ($crs_record_height * $crs_display_count);
+			$cnt = 0;
+			$maxitems = $rss->get_item_quantity( 10 ); 
+			$rss_items = $rss->get_items( 0, $maxitems );
+			if ( $maxitems > 0 )
+			{
+				foreach ( $rss_items as $item )
+				{
+					$get_permalink = $item->get_permalink();
+					$crs_post_title = $item->get_title();
+					
+					$crs_post_title = substr($crs_post_title, 0, $crs_display_width);
+					$dis_height = $crs_record_height."px";
+					$crs_html = $crs_html . "<div class='crs_div' style='height:$dis_height;padding:2px 0px 2px 0px;'>"; 
+					$crs_html = $crs_html . "<a target='_blank' href='$get_permalink'>$crs_post_title</a>";
+					$crs_html = $crs_html . "</div>";
+					
+					$crs_post_title = trim($crs_post_title);
+					$get_permalink = $get_permalink;
+					$crs_x = $crs_x . "crs_array[$crs_count] = '<div class=\'crs_div\' style=\'height:$dis_height;padding:2px 0px 2px 0px;\'><a target=\'_blank\' href=\'$get_permalink\'>$crs_post_title</a></div>'; ";	
+					$crs_count++;
+					
+					$cnt++;
+				}
+				
+				$crs_record_height = $crs_record_height + 4;
+				if($crs_count >= $crs_display_count)
+				{
+					$crs_count = $crs_display_count;
+					$crs_height = ($crs_record_height * $crs_display_count);
+				}
+				else
+				{
+					$crs_count = $crs_count;
+					$crs_height = ($crs_count*$crs_record_height);
+				}
+				$crs_height1 = $crs_record_height."px";
+				?>	
+				<div style="padding-top:8px;padding-bottom:8px;">
+					<div style="text-align:left;vertical-align:middle;text-decoration: none;overflow: hidden; position: relative; margin-left: 1px; height: <?php echo $crs_height1; ?>;" id="crs_Holder">
+						<?php echo $crs_html; ?>
+					</div>
+				</div>
+				<script type="text/javascript">
+				var crs_array	= new Array();
+				var crs_obj	= '';
+				var crs_scrollPos 	= '';
+				var crs_numScrolls	= '';
+				var crs_heightOfElm = '<?php echo $crs_record_height; ?>';
+				var crs_numberOfElm = '<?php echo $crs_count; ?>';
+				var crs_scrollOn 	= 'true';
+				function crs_createscroll() 
+				{
+					<?php echo $crs_x; ?>
+					crs_obj	= document.getElementById('crs_Holder');
+					crs_obj.style.height = (crs_numberOfElm * crs_heightOfElm) + 'px';
+					crs_content();
+				}
+				</script>
+				<script type="text/javascript">
+				crs_createscroll();
+				</script>
+				<?php
+			}
+			else
+			{
+				_e('No data available', 'continuous-rss-scrolling');
+			}
 		}
 		else
 		{
-			$crs_count = $crs_count;
-			$crs_height = ($crs_count*$crs_record_height);
+			_e('No data available', 'continuous-rss-scrolling');
 		}
-		$crs_height1 = $crs_record_height."px";
-		?>	
-		<div style="padding-top:8px;padding-bottom:8px;">
-			<div style="text-align:left;vertical-align:middle;text-decoration: none;overflow: hidden; position: relative; margin-left: 1px; height: <?php echo $crs_height1; ?>;" id="crs_Holder">
-				<?php echo $crs_html; ?>
-			</div>
-		</div>
-		<script type="text/javascript">
-		var crs_array	= new Array();
-		var crs_obj	= '';
-		var crs_scrollPos 	= '';
-		var crs_numScrolls	= '';
-		var crs_heightOfElm = '<?php echo $crs_record_height; ?>';
-		var crs_numberOfElm = '<?php echo $crs_count; ?>';
-		var crs_scrollOn 	= 'true';
-		function crs_createscroll() 
-		{
-			<?php echo $crs_x; ?>
-			crs_obj	= document.getElementById('crs_Holder');
-			crs_obj.style.height = (crs_numberOfElm * crs_heightOfElm) + 'px';
-			crs_content();
-		}
-		</script>
-		<script type="text/javascript">
-		crs_createscroll();
-		</script>
-		<?php
 	}
 	else
 	{
-		_e('No data available', 'continuous-rss-scrolling');
+		_e('RSS url is invalid or broken', 'rss-news-display');
 	}
 }
 
@@ -135,7 +146,12 @@ function crs_install()
 
 function crs_control() 
 {
+	echo '<p><b>';
 	_e('Continuous rss scrolling', 'continuous-rss-scrolling');
+	echo '.</b> ';
+	_e('Check official website for more information', 'continuous-rss-scrolling');
+	?> <a target="_blank" href="http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/"><?php _e('click here', 'continuous-rss-scrolling'); ?></a></p><?php
+
 }
 
 function crs_widget($args) 
