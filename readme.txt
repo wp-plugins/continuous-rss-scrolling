@@ -5,8 +5,8 @@ Author URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Plugin URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Tags:  Continuous, rss, scrolling
 Requires at least: 3.4
-Tested up to: 3.9
-Stable tag: 9.3
+Tested up to: 4.0
+Stable tag: 9.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
@@ -34,10 +34,6 @@ Continuous rss scrolling plugin create the vertical scroll in the widget using g
 2. Copy and past the below mentioned code to your desired template location (ie in your PHP file).	
 &lt;?php if (function_exists (crs)) crs(); ?&gt;			
 
-See the live demo !		
-To see my all plugin : [click to go](http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/)			
-More info : [click to go](http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/)
-	
 == Installation ==	
 
 **Installation Instruction & Configuration**  	
@@ -84,13 +80,16 @@ http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 
 == Upgrade Notice ==
 
-= 1.0 =				
+= 1.0 =	
+			
 First version.		
 
 = 2.0 =
+
 More help included.
 
 = 3.0 =
+
 Only admin user can access this plugin.
 RSS links will open in a new window. 
 
@@ -99,79 +98,112 @@ Tested up to 3.2.1
 Javascript handled as per w3c standard.
 
 = 5.0 =
+
 Tested up to 3.3
 
 = 6.0 =
 Tested up to 3.4
 
 = 7.0 =
+
 Tested up to 3.4.1
 New demo link
 
 = 8.0 =
+
 Tested upto 3.4.2
 
 = 8.1 =
+
 Tested upto 3.5
 
 = 9.0 =
+
 Tested upto 3.6
 
 = 9.1 =	
+
 Minor change in the admin layout.
 
 = 9.2 =
+
 1. Tested up to 3.8
 2. Now this plugin supports localization (or internationalization). i.e. option to translate into other languages. 
 Plugin *.po file (continuous-rss-scrolling.po) available in the languages folder. Translators Welcome.
 
 = 9.3 =
+
 1. Tested up to 3.9
 2. Now it using fetch_feed() wordpress method to load rss feed. (fetch_feed() uses the SimplePie and FeedCache functionality for retrieval and parsing and automatic caching)
+
+= 9.4 =
+
+1. Tested up to 4.0
+2. Little modification on fetch_feed() method call.
+3. Support multi widget.
 
 == Changelog ==
 
 = 1.0 =	
+
 First version
 
 = 2.0 =		
+
 More help included.
 
 = 3.0 =
+
 Only admin user can access this plugin.
 RSS links will open in a new window. 
 
 = 4.0 =
+
 Tested up to 3.2.1
 Javascript handled as per w3c standard.
 
 = 5.0 =
+
 Tested up to 3.3
 
 = 6.0 =
+
 Tested up to 3.4
 
 = 7.0 =
+
 Tested upto 3.4.1
 New demo link
 
 = 8.0 =
+
 Tested upto 3.4.2
 
 = 8.1 =
+
 Tested upto 3.5
 
 = 9.0 =
+
 Tested upto 3.6
 
 = 9.1 =	
+
 Minor change in the admin layout.
 
 = 9.2 =
+
 1. Tested up to 3.8
 2. Now this plugin supports localization (or internationalization). i.e. option to translate into other languages. 
 Plugin *.po file (continuous-rss-scrolling.po) available in the languages folder. Translators Welcome.
 
 = 9.3 =
+
 1. Tested up to 3.9
 2. Now it using fetch_feed() wordpress method to load rss feed. (fetch_feed() uses the SimplePie and FeedCache functionality for retrieval and parsing and automatic caching)
+
+= 9.4 =
+
+1. Tested up to 4.0
+2. Little modification on fetch_feed() method call.
+3. Support multi widget.
