@@ -2,9 +2,9 @@
 /*
 Plugin Name: Continuous rss scrolling
 Plugin URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
-Description: This plug-in will scroll the RSS title continuously in the wordpress website, we can use this plugin as a widget.
+Description: This plugin will scroll the RSS title continuously in the wordpress website, we can use this plugin as a widget.
 Author: Gopi Ramasamy
-Version: 9.4
+Version: 9.5
 Author URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Donate link: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Tags: Continuous, announcement, scroller, message, rss, xml
@@ -34,7 +34,12 @@ function crs()
 	{
 		$crs_display_count = 5;
 	}
-
+	
+	$crs_speed = get_option('crs_speed');
+	$crs_waitseconds = get_option('crs_waitseconds');
+	if(!is_numeric($crs_speed)) { $crs_speed = 2; }
+	if(!is_numeric($crs_waitseconds)) { $crs_waitseconds = 2; }
+	
 	if(get_option('crs_rss_url') <> "")
 	{
 		$url = get_option('crs_rss_url');
@@ -104,6 +109,8 @@ function crs()
 				var crs_numScrolls	= '';
 				var crs_heightOfElm = '<?php echo $crs_record_height; ?>';
 				var crs_numberOfElm = '<?php echo $crs_count; ?>';
+				var crs_speed 		= '<?php echo $crs_speed; ?>';
+				var crs_waitseconds = '<?php echo $crs_waitseconds; ?>';
 				var crs_scrollOn 	= 'true';
 				function crs_createscroll() 
 				{
@@ -158,6 +165,14 @@ function crs_shortcode( $atts )
 			{
 				$url = $atts["url"];
 			}
+			elseif($key == "speed")
+			{
+				$speed = $atts["speed"];
+			}
+			elseif($key == "waitseconds")
+			{
+				$waitseconds = $atts["waitseconds"];
+			}
 		}
 	}
 
@@ -174,6 +189,9 @@ function crs_shortcode( $atts )
 		$crs_display_count = 5;
 	}	
 
+	if(!is_numeric($speed)) { $speed = 2; }
+	if(!is_numeric($waitseconds)) { $waitseconds = 2; }
+	
 	$xml = "";
 	$cnt = 0;
 	$crs_count = 0;
@@ -231,6 +249,8 @@ function crs_shortcode( $atts )
 			var crs_numScrolls	= '';
 			var crs_heightOfElm = '<?php echo $crs_record_height; ?>';
 			var crs_numberOfElm = '<?php echo $crs_count; ?>';
+			var crs_speed 		= '<?php echo $speed; ?>';
+			var crs_waitseconds = '<?php echo $waitseconds; ?>';
 			var crs_scrollOn 	= 'true';
 			function crs_createscroll() 
 			{
@@ -264,6 +284,8 @@ function crs_install()
 	add_option('crs_display_count', "5");
 	add_option('crs_record_height', "40");
 	add_option('crs_rss_url', "http://www.gopiplus.com/work/category/word-press-plug-in/feed/");
+	add_option('crs_speed', "2");
+	add_option('crs_waitseconds', "2");
 }
 
 function crs_admin_options() 
@@ -280,6 +302,9 @@ function crs_admin_options()
 		$crs_record_height = get_option('crs_record_height');
 		$crs_rss_url = get_option('crs_rss_url');
 		
+		$crs_speed = get_option('crs_speed');
+		$crs_waitseconds = get_option('crs_waitseconds');
+		
 		if (isset($_POST['crs_form_submit']) && $_POST['crs_form_submit'] == 'yes')
 		{
 			//	Just security thingy that wordpress offers us
@@ -291,12 +316,17 @@ function crs_admin_options()
 			$crs_record_height = stripslashes($_POST['crs_record_height']);
 			$crs_rss_url = stripslashes($_POST['crs_rss_url']);
 			
+			$crs_speed = stripslashes($_POST['crs_speed']);
+			$crs_waitseconds = stripslashes($_POST['crs_waitseconds']);
+			
 			update_option('crs_title', $crs_title );
 			update_option('crs_display_width', $crs_display_width );
 			update_option('crs_display_count', $crs_display_count );
 			update_option('crs_record_height', $crs_record_height );
 			update_option('crs_rss_url', $crs_rss_url );
 			
+			update_option('crs_speed', $crs_speed );
+			update_option('crs_waitseconds', $crs_waitseconds );
 			?>
 			<div class="updated fade">
 				<p><strong><?php _e('Details successfully updated.', 'continuous-rss-scrolling'); ?></strong></p>
@@ -326,6 +356,16 @@ function crs_admin_options()
 			<label for="tag-title"><?php _e('RSS url', 'continuous-rss-scrolling'); ?></label>
 			<input name="crs_rss_url" type="text" value="<?php echo $crs_rss_url; ?>"  id="crs_rss_url" size="70">
 			<p><?php _e('Please enter your RSS url.', 'continuous-rss-scrolling'); ?></p>
+		
+			<label for="crs_speed"><?php _e('Scrolling speed', 'continuous-rss-scrolling'); ?></label>
+			<?php _e( 'Slow', 'continuous-rss-scrolling' ); ?> 
+			<input name="crs_speed" type="range" value="<?php echo $crs_speed; ?>"  id="crs_speed" min="1" max="10" /> 
+			<?php _e( 'Fast', 'continuous-rss-scrolling' ); ?> 
+			<p><?php _e('Select how fast you want the to scroll the items.', 'continuous-rss-scrolling'); ?></p>
+			
+			<label for="crs_waitseconds"><?php _e( 'Seconds to wait', 'continuous-rss-scrolling' ); ?></label>
+			<input name="crs_waitseconds" type="text" value="<?php echo $crs_waitseconds; ?>" id="crs_waitseconds" maxlength="4" />
+			<p><?php _e( 'How many seconds you want the wait to scroll', 'continuous-rss-scrolling' ); ?> (<?php _e( 'Example', 'continuous-rss-scrolling' ); ?>: 5)</p>
 		
 			<div style="height:10px;"></div>
 			<input type="hidden" name="crs_form_submit" value="yes"/>
@@ -392,8 +432,9 @@ class crs_widget_register extends WP_Widget
 		$width	= $instance['width'];
 		$count	= $instance['count'];
 		$height	= $instance['height'];
-		$url	= $instance['url'];
-
+		$url	= $instance['url'];		
+		$speed			= $instance['speed'];
+		$waitseconds	= $instance['waitseconds'];
 		echo $args['before_widget'];
 		if ( ! empty( $title ) )
 		{
@@ -405,6 +446,8 @@ class crs_widget_register extends WP_Widget
 		$arr["count"] 	= $count;
 		$arr["height"] 	= $height;
 		$arr["url"] 	= $url;
+		$arr["speed"] 		= $speed;
+		$arr["waitseconds"] = $waitseconds;
 		crs_shortcode($arr);
 		// Call widget method
 		echo $args['after_widget'];
@@ -418,6 +461,8 @@ class crs_widget_register extends WP_Widget
 		$instance['count'] 	= ( ! empty( $new_instance['count'] ) ) ? strip_tags( $new_instance['count'] ) : '';
 		$instance['height'] = ( ! empty( $new_instance['height'] ) ) ? strip_tags( $new_instance['height'] ) : '';
 		$instance['url'] 	= ( ! empty( $new_instance['url'] ) ) ? strip_tags( $new_instance['url'] ) : '';
+		$instance['speed'] 			= ( ! empty( $new_instance['speed'] ) ) ? strip_tags( $new_instance['speed'] ) : '';
+		$instance['waitseconds'] 	= ( ! empty( $new_instance['waitseconds'] ) ) ? strip_tags( $new_instance['waitseconds'] ) : '';
 		return $instance;
 	}
 	
@@ -428,7 +473,9 @@ class crs_widget_register extends WP_Widget
             'width' 	=> '',
             'count' 	=> '',
             'height' 	=> '',
-			'url' 		=> ''
+			'url' 		=> '',
+			'speed' 		=> '',
+			'waitseconds' 	=> ''
         );
 		
 		$instance 	= wp_parse_args( (array) $instance, $defaults);
@@ -437,7 +484,8 @@ class crs_widget_register extends WP_Widget
         $count 		= $instance['count'];
         $height 	= $instance['height'];
 		$url 		= $instance['url'];
-	
+		$speed 			= $instance['speed'];
+		$waitseconds 	= $instance['waitseconds'];
 		?>
 		<p>
 		<label for="<?php echo $this->get_field_id('title'); ?>"><?php _e('Title', 'continuous-rss-scrolling'); ?></label>
@@ -463,8 +511,40 @@ class crs_widget_register extends WP_Widget
 		<input class="widefat" id="<?php echo $this->get_field_id('height'); ?>" name="<?php echo $this->get_field_name('height'); ?>" type="text" value="<?php echo $height; ?>" />
 		If any overlap in the scroll at front end, you should arrange(increase/decrease) this height.
         </p>
+		
+		<p>
+            <label for="<?php echo $this->get_field_id('speed'); ?>"><?php _e('Scrolling speed', 'information-reel'); ?></label><br />
+			<select class="" id="<?php echo $this->get_field_id('speed'); ?>" name="<?php echo $this->get_field_name('speed'); ?>" style="width:130px;">
+				<option value="">Select</option>
+				<option value="1" <?php $this->crs_render_selected($speed=='1'); ?>>1</option>
+				<option value="2" <?php $this->crs_render_selected($speed=='2'); ?>>2</option>
+				<option value="3" <?php $this->crs_render_selected($speed=='3'); ?>>3</option>
+				<option value="4" <?php $this->crs_render_selected($speed=='4'); ?>>4</option>
+				<option value="5" <?php $this->crs_render_selected($speed=='5'); ?>>5</option>
+				<option value="6" <?php $this->crs_render_selected($speed=='6'); ?>>6</option>
+				<option value="7" <?php $this->crs_render_selected($speed=='7'); ?>>7</option>
+				<option value="8" <?php $this->crs_render_selected($speed=='8'); ?>>8</option>
+				<option value="9" <?php $this->crs_render_selected($speed=='9'); ?>>9</option>
+				<option value="10" <?php $this->crs_render_selected($speed=='10'); ?>>10</option>
+			</select>
+			<?php _e('Select how fast you want the to scroll the items.', 'information-reel'); ?>
+        </p>
+		<p>
+            <label for="<?php echo $this->get_field_id('waitseconds'); ?>"><?php _e('Seconds to wait', 'information-reel'); ?></label>
+            <input class="widefat" id="<?php echo $this->get_field_id('waitseconds'); ?>" name="<?php echo $this->get_field_name('waitseconds'); ?>" type="text" value="<?php echo $waitseconds; ?>" maxlength="3" />
+			<?php _e('How many seconds you want to wait to scroll. Enter only number.', 'information-reel'); ?>
+        </p>
+		
 		<p><a target="_blank" href="http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/"><?php _e('click here', 'continuous-rss-scrolling'); ?></a></p>
 		<?php
+	}
+	
+	function crs_render_selected($var) 
+	{
+		if ($var==1 || $var==true) 
+		{
+			echo 'selected="selected"';
+		}
 	}
 }
 

@@ -30,7 +30,9 @@ function crs_scroll() {
 			}
 		}
 	} else {
-		setTimeout("crs_scroll();", 10);
+		/* Speed values: 10 slow, 50 fast */
+		var speed = 60 - ( crs_speed * 10 );
+		setTimeout("crs_scroll();", speed);
 	}
 }
 
@@ -64,5 +66,5 @@ function crs_content() {
 	crs_numScrolls 	= crs_array.length;
 	crs_obj.scrollTop 	= '0';
 	// start scrolling
-	setTimeout("crs_scroll();", 2000);
+	setTimeout("crs_scroll();", crs_waitseconds * 2000);
 }

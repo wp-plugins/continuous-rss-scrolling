@@ -6,11 +6,11 @@ Plugin URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Tags:  Continuous, rss, scrolling
 Requires at least: 3.4
 Tested up to: 4.0
-Stable tag: 9.4
+Stable tag: 9.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
-This plug-in will scroll the RSS title continuously in the wordpress website, we can use this plugin as a widget.
+This plugin will scroll the RSS title continuously in the wordpress website, we can use this plugin as a widget.
 
 == Description ==
 
@@ -25,14 +25,15 @@ Continuous rss scrolling plugin create the vertical scroll in the widget using g
 
 1. Easy installation.  
 2. Widgets, so you can add pretty much anything. 
-3. Easy scroller setting. 
+3. Easy scroller setting.
+4. Option added to control scrolling speed and delay.
 
 **We can use this plug-in in different way.**		
 
 1. Go to widget menu and drag and drop the "continuous rss scrolling" widget to your sidebar location.
 		 	
 2. Copy and past the below mentioned code to your desired template location (ie in your PHP file).	
-&lt;?php if (function_exists (crs)) crs(); ?&gt;			
+&lt;?php crs(); ?&gt;			
 
 == Installation ==	
 
@@ -142,6 +143,10 @@ Plugin *.po file (continuous-rss-scrolling.po) available in the languages folder
 2. Little modification on fetch_feed() method call.
 3. Support multi widget.
 
+= 9.5 =
+
+1. Option added to control scrolling speed and delay.
+
 == Changelog ==
 
 = 1.0 =	
@@ -207,3 +212,7 @@ Plugin *.po file (continuous-rss-scrolling.po) available in the languages folder
 1. Tested up to 4.0
 2. Little modification on fetch_feed() method call.
 3. Support multi widget.
+
+= 9.5 =
+
+1. Option added to control scrolling speed and delay.
