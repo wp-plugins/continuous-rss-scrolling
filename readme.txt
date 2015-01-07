@@ -5,8 +5,8 @@ Author URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Plugin URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Tags:  Continuous, rss, scrolling
 Requires at least: 3.4
-Tested up to: 4.0
-Stable tag: 9.5
+Tested up to: 4.1
+Stable tag: 9.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 	
@@ -147,6 +147,10 @@ Plugin *.po file (continuous-rss-scrolling.po) available in the languages folder
 
 1. Option added to control scrolling speed and delay.
 
+= 9.6 =
+
+1. Tested up to 4.1
+
 == Changelog ==
 
 = 1.0 =	
@@ -216,3 +220,7 @@ Plugin *.po file (continuous-rss-scrolling.po) available in the languages folder
 = 9.5 =
 
 1. Option added to control scrolling speed and delay.
+
+= 9.6 =
+
+1. Tested up to 4.1
