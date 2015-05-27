@@ -4,7 +4,7 @@ Plugin Name: Continuous rss scrolling
 Plugin URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Description: This plugin will scroll the RSS title continuously in the wordpress website, we can use this plugin as a widget.
 Author: Gopi Ramasamy
-Version: 9.6
+Version: 9.7
 Author URI: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Donate link: http://www.gopiplus.com/work/2010/09/05/continuous-rss-scrolling/
 Tags: Continuous, announcement, scroller, message, rss, xml
